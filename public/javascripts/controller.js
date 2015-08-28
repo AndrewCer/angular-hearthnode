@@ -1,10 +1,8 @@
-app.controller('HomeController', ['$scope', 'GetClassDeck', function ($scope, GetClassDeck) {
+app.controller('HomeController', ['$scope', 'GetCards', function ($scope, GetCards) {
 
 }])
 
-app.controller('ClassDeckController', ['$scope', '$routeParams', 'GetClassDeck', function ($scope, $routeParams, GetClassDeck) {
+app.controller('ClassDeckController', ['$scope', '$routeParams', 'GetCards', function ($scope, $routeParams, GetCards) {
   var deckClass = $routeParams.class;
-  GetClassDeck.deckCall(deckClass);
-  $scope.cards = GetClassDeck
-  console.log(GetClassDeck);
+
 }])

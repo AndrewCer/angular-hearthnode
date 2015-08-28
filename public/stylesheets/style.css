@@ -14,3 +14,12 @@ body {
 .sub-header {
   text-align: center;
 }
+
+.class-cards {
+  display: inline-block;
+}
+
+.single-card img{
+  width: 200px;
+  height: 300px;
+}
