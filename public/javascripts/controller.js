@@ -4,15 +4,19 @@
 app.controller('HomeController', ['$scope', '$http', 'Warrior', 'Shaman', 'Rogue',
 'Paladin', 'Hunter', 'Druid', 'Warlock', 'Mage', 'Priest',
 function ($scope, $http, Warrior, Shaman, Rogue, Paladin, Hunter, Druid, Warlock, Mage, Priest) {
-  // var classArray = ['Warrior', 'Shaman', 'Rogue',
-  // 'Paladin', 'Hunter', 'Druid', 'Warlock', 'Mage', 'Priest']
-  // for (var i = 0; i < classArray.length; i++) {
-  //   $http.get('api/deck/' + classArray[i])
-  //   .then(function (results) {
-  //     console.log(classArray[i]);
-  //   //  classArray[i].deckArray(results.data)
-  //   })
-  // }
+  var classArray = ['Warrior', 'Shaman', 'Rogue',
+  'Paladin', 'Hunter', 'Druid', 'Warlock', 'Mage', 'Priest'];
+  var testing = function (input) {
+    $http.get('api/deck/' + input)
+    .then(function (results) {
+      eval(input).deckArray(results.data)
+    })
+  }
+  if (Warrior.cards.length === 0) {
+    for (var i = 0; i < classArray.length; i++) {
+      testing(classArray[i])
+    }
+  }
 }])
 
 app.controller('ClassDeckController', ['$scope', '$routeParams', '$http', 'Warrior', 'Shaman', 'Rogue',
@@ -20,7 +24,6 @@ app.controller('ClassDeckController', ['$scope', '$routeParams', '$http', 'Warri
 function ($scope, $routeParams, $http, Warrior, Shaman, Rogue, Paladin, Hunter, Druid, Warlock, Mage, Priest) {
   var deckClass = $routeParams.class;
   if (eval(deckClass).cards.length > 0) {
-    console.log(eval(deckClass).cards);
     $scope.cards = eval(deckClass).cards[0]
   }
   else {
