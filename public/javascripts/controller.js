@@ -1,6 +1,3 @@
-// TODO: when user opens home page, make an api call for each class and then store data in factory
-// TODO: move from an api call to a database call
-
 app.controller('HomeController', ['$scope', '$http', 'Warrior', 'Shaman', 'Rogue',
 'Paladin', 'Hunter', 'Druid', 'Warlock', 'Mage', 'Priest',
 function ($scope, $http, Warrior, Shaman, Rogue, Paladin, Hunter, Druid, Warlock, Mage, Priest) {
@@ -9,7 +6,7 @@ function ($scope, $http, Warrior, Shaman, Rogue, Paladin, Hunter, Druid, Warlock
   var testing = function (input) {
     $http.get('api/deck/' + input)
     .then(function (results) {
-      eval(input).deckArray(results.data)
+      eval(input).deckArray(results.data.cards)
     })
   }
   if (Warrior.cards.length === 0) {
