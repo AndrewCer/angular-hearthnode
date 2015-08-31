@@ -8,7 +8,26 @@ body {
 
 .jumbotron {
   background-color: black;
-  height: 400px;
+  height: 425px;
+  margin-top: 40px;
+}
+
+.splash {
+  /*background: url("/images/banners/banner2.jpg") no-repeat center fixed;*/
+  background: url("/images/banners/banner2.jpg") no-repeat;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+.decks {
+  /*background: url("/images/banners/banner3.jpg") no-repeat center fixed;*/
+  background: url("/images/banners/banner3.jpg") no-repeat;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
 }
 
 .sub-header {
@@ -22,4 +41,21 @@ body {
 .single-card img{
   width: 200px;
   height: 300px;
+}
+
+.card-container {
+  /*background-color: black;*/
+  height: 610px;
+}
+
+.card-scroller {
+  overflow: scroll;
+  /*white-space: nowrap;*/
+  padding-left: 20px;
+  height: 600px;
+}
+
+.stage-area {
+  height: 100%;
+  background: beige;
 }

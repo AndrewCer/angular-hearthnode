@@ -1,19 +1,29 @@
 <div ng-controller='ClassDeckController'>
-  <div class="jumbotron">
+  <div class="jumbotron decks">
       <div class="container">
-        <h2 style="color: white">Decks IMG goes here</h2>
+        <!-- <h2 style="color: white">Decks IMG goes here</h2> -->
       </div>
   </div>
-  <label>Search Deck</label>
-  <input type="text" ng-model='search.name'>
   <div class="container">
-    <div class="row">
-      <div class="class-cards" ng-repeat='card in cards | filter:search'>
-        <div class='single-card' ng-show='{{card.img}}'>
-          <!-- <h1>{{card.name}}</h1> -->
-          <img ng-src="{{card.img}}" alt="{{card.name}}" />
+    <h1>{{deckClass}} Cards</h1>
+    <label>Search Deck</label>
+    <input type="text" ng-model='search.name'>
+    <div class="row card-container">
+      <div class="card-scroller col-md-8">
+        <div class="class-cards" ng-repeat='card in cards | filter:search'>
+          <div class='single-card' ng-show='card.img'>
+            <!-- <h1>{{card.name}}</h1> -->
+            <img ng-src="{{card.img}}" alt="{{card.name}}" />
+          </div>
         </div>
+      </div>
+      <div class="stage-area col-md-4">
+        <p>Card Staging Area</p>
       </div>
     </div>
   </div>
+    </div>
+  </div>
+
+
 </div>

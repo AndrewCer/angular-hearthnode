@@ -2,7 +2,6 @@ app.factory('Warrior', function () {
   var arr = []
   var obj = {}
   obj.deckArray = function (deck) {
-    console.log(deck);
     arr.push(deck);
     return arr
   }
