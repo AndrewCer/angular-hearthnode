@@ -59,3 +59,12 @@ body {
   height: 100%;
   background: beige;
 }
+
+.filter-input, .filter-input-number {
+  width: 200px;
+  display: inline-block;
+}
+
+.filter-input-number {
+  width: 70px;
+}
