@@ -17,12 +17,12 @@
     <input type="text" class="form-control filter-input" ng-model='search.name' ng-show='allFilters'>
     <label>Cost</label>
     <input type="checkbox" ng-model='cardCost'>
-    <input type="number" class="form-control filter-input-number" ng-model='search.cost' ng-show='cardCost'>
-    <input type="number" class="form-control filter-input-number" ng-model='search.cost' ng-show='allFilters'>
+    <input type="number" class="form-control filter-input-number" ng-model='search.cost' model-undefined ng-show='cardCost'>
+    <input type="number" class="form-control filter-input-number" ng-model='search.cost' model-undefined ng-show='allFilters'>
     <label>Attack</label>
     <input type="checkbox" ng-model='cardAttack'>
-    <input type="number" class='form-control filter-input-number' ng-model='search.attack' ng-show='cardAttack'>
-    <input type="number" class='form-control filter-input-number' ng-model='search.attack' ng-show='allFilters'>
+    <input type="number" class='form-control filter-input-number' ng-model='search.attack' model-undefined ng-show='cardAttack'>
+    <input type="number" class='form-control filter-input-number' ng-model='search.attack' model-undefined ng-show='allFilters'>
     <div class="row card-container">
       <div class="card-scroller col-md-8">
         <div class="class-cards" ng-repeat='card in cards | filter:search'>
