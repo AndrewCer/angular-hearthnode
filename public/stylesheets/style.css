@@ -68,3 +68,7 @@ body {
 .filter-input-number {
   width: 70px;
 }
+.footer {
+  background-color: #f5f5f5;
+  padding: 10px;
+}
