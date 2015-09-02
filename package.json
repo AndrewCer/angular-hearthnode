@@ -16,5 +16,10 @@
     "morgan": "~1.5.3",
     "serve-favicon": "~2.2.1",
     "unirest": "^0.4.2"
+  },
+  "devDependencies": {
+    "gulp": "^3.9.0",
+    "gulp-concat": "^2.6.0",
+    "gulp-gzip": "^1.2.0"
   }
 }

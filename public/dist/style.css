@@ -1,0 +1,74 @@
+body {
+  /*background: url("/images/backgrounds/hearthnode-background.jpg") no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;*/
+}
+
+.jumbotron {
+  background-color: black;
+  height: 425px;
+  margin-top: 40px;
+}
+
+.splash {
+  /*background: url("/images/banners/banner2.jpg") no-repeat center fixed;*/
+  background: url("/images/banners/banner2.jpg") no-repeat;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+.decks {
+  /*background: url("/images/banners/banner3.jpg") no-repeat center fixed;*/
+  background: url("/images/banners/banner3.jpg") no-repeat;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+.sub-header {
+  text-align: center;
+}
+
+.class-cards {
+  display: inline-block;
+}
+
+.single-card img{
+  width: 200px;
+  height: 300px;
+}
+
+.card-container {
+  /*background-color: black;*/
+  height: 610px;
+}
+
+.card-scroller {
+  overflow: scroll;
+  /*white-space: nowrap;*/
+  padding-left: 20px;
+  height: 600px;
+}
+
+.stage-area {
+  height: 100%;
+  background: beige;
+}
+
+.filter-input, .filter-input-number {
+  width: 200px;
+  display: inline-block;
+}
+
+.filter-input-number {
+  width: 70px;
+}
+.footer {
+  background-color: #f5f5f5;
+  padding: 10px;
+}
