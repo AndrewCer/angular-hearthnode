@@ -66,6 +66,7 @@ a[ng-click]{
 .stage-area {
   height: 100%;
   background: beige;
+  overflow: auto;
 }
 
 .filter-input, .filter-input-number {

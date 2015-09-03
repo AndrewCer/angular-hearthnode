@@ -50,6 +50,7 @@ function ($scope, $routeParams, $http, Warrior, Shaman, Rogue, Paladin, Hunter, 
   $scope.addCard = function (input) {
     if (stagedCardsArr.length < 30) {
       $scope.cardsMaxed = null;
+      input.count = 1;
       stagedCardsArr.push(input);
       $scope.stagedCards = stagedCardsArr;
     }
