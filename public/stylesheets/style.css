@@ -6,6 +6,14 @@ body {
   background-size: cover;*/
 }
 
+a[ng-click]{
+    cursor: pointer;
+}
+
+.glyphicon-remove:hover {
+  cursor: pointer;
+}
+
 .jumbotron {
   background-color: black;
   height: 425px;

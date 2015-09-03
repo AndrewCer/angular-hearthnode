@@ -62,6 +62,17 @@ function ($scope, $routeParams, $http, Warrior, Shaman, Rogue, Paladin, Hunter, 
     }
     getClassDecks($routeParams.class)
   }
+  var stagedCardsArr = [];
+  $scope.addCard = function (input) {
+    stagedCardsArr.push(input);
+    $scope.stagedCards = stagedCardsArr;
+  }
+  $scope.removeCard = function (cardIndex) {
+    stagedCardsArr.splice(cardIndex, 1)
+  }
+  $scope.stageTracking = function (card) {
+    console.log(card);
+  }
 }])
 
 app.directive('modelUndefined', function(){

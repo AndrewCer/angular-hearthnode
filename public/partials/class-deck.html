@@ -27,12 +27,18 @@
       <div class="card-scroller col-md-8">
         <div class="class-cards" ng-repeat='card in cards | filter:search'>
           <div class='single-card' ng-show='card.img'>
+            <a ng-click='addCard(card)'>
             <img ng-src="{{card.img}}" alt="{{card.name}}" />
+            </a>
           </div>
         </div>
       </div>
       <div class="stage-area col-md-4">
         <p>Card Staging Area</p>
+        <div ng-repeat='card in stagedCards track by $index'>
+          <p>{{card.name}} <span class="glyphicon glyphicon-remove" ng-click='removeCard($index)'></span></p>
+          <p></p>
+        </div>
       </div>
     </div>
   </div>
