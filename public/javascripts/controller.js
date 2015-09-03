@@ -48,10 +48,17 @@ function ($scope, $routeParams, $http, Warrior, Shaman, Rogue, Paladin, Hunter, 
   }
   var stagedCardsArr = [];
   $scope.addCard = function (input) {
-    stagedCardsArr.push(input);
-    $scope.stagedCards = stagedCardsArr;
+    if (stagedCardsArr.length < 30) {
+      $scope.cardsMaxed = null;
+      stagedCardsArr.push(input);
+      $scope.stagedCards = stagedCardsArr;
+    }
+    else {
+      $scope.cardsMaxed = 'Decks can only contain 30 cards!';
+    }
   }
   $scope.removeCard = function (cardIndex) {
+    $scope.cardsMaxed = null;
     stagedCardsArr.splice(cardIndex, 1)
   }
   $scope.stageTracking = function (card) {
