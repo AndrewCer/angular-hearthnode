@@ -1,7 +1,14 @@
 // TODO: temp store cards from staging area for quick access
 //perhaps also store all users decks here?
-app.factory('storeusersdeck', function () {
-
+app.factory('usersDeck', function () {
+  var arr = [];
+  var obj = {};
+  obj.currentDeck = function (deck) {
+    arr.push(deck);
+    return arr;
+  }
+  obj.cards = arr;
+  return obj;
 })
 
 app.factory('Warrior', function () {

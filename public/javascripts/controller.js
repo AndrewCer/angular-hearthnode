@@ -64,5 +64,6 @@ function ($scope, $routeParams, $http, Warrior, Shaman, Rogue, Paladin, Hunter, 
   }
   $scope.createDeck = function () {
     //send deck from stage area to factory and also make api call to store deck to db
+    usersDeck.currentDeck(stagedCards);
   }
 }])
