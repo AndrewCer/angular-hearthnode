@@ -12,15 +12,15 @@
     <input type="checkbox" ng-model='allFilters'>
     <br>
     <label>Card Name</label>
-    <input type="checkbox" ng-model='cardName'>
+    <input type="checkbox" ng-model='cardName' ng-show='!allFilters'>
     <input type="text" class="form-control filter-input" ng-model='search.name' ng-show='cardName'>
     <input type="text" class="form-control filter-input" ng-model='search.name' ng-show='allFilters'>
     <label>Cost</label>
-    <input type="checkbox" ng-model='cardCost'>
+    <input type="checkbox" ng-model='cardCost' ng-show='!allFilters'>
     <input type="number" class="form-control filter-input-number" ng-model='search.cost' model-undefined ng-show='cardCost'>
     <input type="number" class="form-control filter-input-number" ng-model='search.cost' model-undefined ng-show='allFilters'>
     <label>Attack</label>
-    <input type="checkbox" ng-model='cardAttack'>
+    <input type="checkbox" ng-model='cardAttack' ng-show='!allFilters'>
     <input type="number" class='form-control filter-input-number' ng-model='search.attack' model-undefined ng-show='cardAttack'>
     <input type="number" class='form-control filter-input-number' ng-model='search.attack' model-undefined ng-show='allFilters'>
     <div class="row card-container">

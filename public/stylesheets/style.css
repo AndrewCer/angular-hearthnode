@@ -12,6 +12,7 @@ a[ng-click]{
 
 .glyphicon-remove:hover {
   cursor: pointer;
+  color: white;
 }
 
 .jumbotron {

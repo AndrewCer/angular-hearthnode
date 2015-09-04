@@ -71,7 +71,7 @@ function ($scope, $routeParams, $http, Warrior, Shaman, Rogue, Paladin, Hunter, 
       $scope.stagedCards = stagedCardsArr;
     }
     else {
-      $scope.cardsMaxed = 'Decks can only contain 30 cards!';
+      $scope.cardsMaxed = 'Deck maxed out at 30/30';
     }
   }
   $scope.removeCard = function (cardIndex) {
