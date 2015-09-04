@@ -1,3 +1,9 @@
+app.controller('AccountController', ['$scope', function ($scope) {
+  // $scope.signUp = function () {
+  //   $scope.showForm = true;
+  // }
+}])
+
 app.controller('HomeController', ['$scope', '$http', 'Warrior', 'Shaman', 'Rogue',
 'Paladin', 'Hunter', 'Druid', 'Warlock', 'Mage', 'Priest',
 function ($scope, $http, Warrior, Shaman, Rogue, Paladin, Hunter, Druid, Warlock, Mage, Priest) {
@@ -62,10 +68,6 @@ function ($scope, $routeParams, $http, Warrior, Shaman, Rogue, Paladin, Hunter, 
     $scope.cardsMaxed = null;
     stagedCardsArr.splice(cardIndex, 1)
   }
-  $scope.createDeck = function () {
-    //send deck from stage area to factory and also make api call to store deck to db
-    usersDeck.currentDeck(stagedCards);
-  }
   $scope.clearDeck = function () {
     var clearCheck = confirm('Are you sure you want to clear your staging area?');
     if (clearCheck) {
@@ -76,5 +78,9 @@ function ($scope, $routeParams, $http, Warrior, Shaman, Rogue, Paladin, Hunter, 
     else {
       return null;
     }
+  }
+  $scope.createDeck = function () {
+    //send deck from stage area to factory and also make api call to store deck to db
+    usersDeck.currentDeck(stagedCards);
   }
 }])

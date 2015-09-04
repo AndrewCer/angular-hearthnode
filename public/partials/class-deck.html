@@ -40,7 +40,7 @@
           <div class="row">
             <h3 class="staged-card-length">{{stagedCards.length || 0}}/30</h3>
             <input type="button" class="btn btn-primary" value="Create Deck!" ng-show='stagedCards.length == 30' ng-click='createDeck()'>
-            <input type="button" class="btn submit-grayed" value="Add More to Create" ng-hide='stagedCards.length == 30'>
+            <input type="button" class="btn submit-grayed" value="Add More Cards to Create" ng-hide='stagedCards.length == 30'>
             <input type="button" class='btn btn-danger' value="Clear Deck" ng-show='stagedCards.length > 0' ng-click='clearDeck()'>
           </div>
         </div>

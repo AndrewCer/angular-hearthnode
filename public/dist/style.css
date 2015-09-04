@@ -10,6 +10,20 @@ a[ng-click]{
     cursor: pointer;
 }
 
+.logo {
+  width: 20px;
+  height: 20px;
+  margin-right: 5px;
+}
+
+.signup-form {
+  margin-top: 5%;
+}
+
+.signup-form input {
+  margin-bottom: 10px;
+}
+
 .glyphicon-remove:hover {
   cursor: pointer;
   color: white;
