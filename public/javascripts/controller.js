@@ -8,7 +8,7 @@ function ($scope, $http, Warrior, Shaman, Rogue, Paladin, Hunter, Druid, Warlock
     .then(function (results) {
       var filteredArray = []
       for (var i = 0; i < results.data.cards.length; i++) {
-        if (results.data.cards[i].img) {
+        if (results.data.cards[i].img && results.data.cards[i].type != 'Hero' && results.data.cards[i].type != 'Hero Power') {
           filteredArray.push(results.data.cards[i])
         }
       }
@@ -36,7 +36,7 @@ function ($scope, $routeParams, $http, Warrior, Shaman, Rogue, Paladin, Hunter, 
       .then(function (results) {
         var filteredArray = []
         for (var i = 0; i < results.data.cards.length; i++) {
-          if (results.data.cards[i].img) {
+          if (results.data.cards[i].img && results.data.cards[i].type != 'Hero' && results.data.cards[i].type != 'Hero Power') {
             filteredArray.push(results.data.cards[i])
           }
         }
@@ -48,6 +48,7 @@ function ($scope, $routeParams, $http, Warrior, Shaman, Rogue, Paladin, Hunter, 
   }
   var stagedCardsArr = [];
   $scope.addCard = function (input) {
+    console.log(input);
     if (stagedCardsArr.length < 30) {
       $scope.cardsMaxed = null;
       input.count = 1;
