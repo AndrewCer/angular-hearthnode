@@ -71,7 +71,7 @@ function ($scope, $routeParams, $http, Warrior, Shaman, Rogue, Paladin, Hunter, 
       $scope.stagedCards = stagedCardsArr;
     }
     else {
-      $scope.cardsMaxed = 'Deck maxed out at 30/30';
+      $scope.cardsMaxed = 'Your deck is full';
     }
   }
   $scope.removeCard = function (cardIndex) {
@@ -81,6 +81,17 @@ function ($scope, $routeParams, $http, Warrior, Shaman, Rogue, Paladin, Hunter, 
   $scope.createDeck = function () {
     //send deck from stage area to factory and also make api call to store deck to db
     usersDeck.currentDeck(stagedCards);
+  }
+  $scope.clearDeck = function () {
+    var clearCheck = confirm('Are you sure you want to clear your staging area?');
+    if (clearCheck) {
+      stagedCardsArr = [];
+      $scope.stagedCards = stagedCardsArr;
+      $scope.cardsMaxed = null;
+    }
+    else {
+      return null;
+    }
   }
 }])
 
