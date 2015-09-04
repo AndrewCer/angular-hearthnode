@@ -1,4 +1,4 @@
-var app = angular.module("hearthNode", ['ngRoute']);
+var app = angular.module("hearthNode", ['ngRoute', 'ngCookies']);
 
 app.config(function ($routeProvider, $locationProvider) {
   $routeProvider
@@ -14,7 +14,43 @@ app.config(function ($routeProvider, $locationProvider) {
     $locationProvider.html5Mode(true);
 })
 
-app.controller('AccountController', ['$scope', '$http', function ($scope, $http) {
+app.controller('AccountController', ['$scope', '$http', '$cookies', function ($scope, $http, $cookies) {
+  var checkLogin = function () {
+    var userinfo = $cookies.get('local');
+    if (userinfo) {
+      $http.post('api/cookies', {userinfo: userinfo})
+      .then(function (result) {
+        if (result.data) {
+          $scope.loggedIn = true;
+          $scope.usersName = result.data;
+        }
+        else {
+          return null
+        }
+      })
+    }
+    else {
+      return null;
+    }
+    // $scope.loggedIn = true;
+    // $scope.usersName = username;
+  }
+  checkLogin();
+  $scope.logIn = function () {
+    var username = $scope.loginName;
+    var password = $scope.loginPassword;
+    $http.post('api/login', {username: username, password: password})
+    .then(function (results) {
+      if (results.data) {
+        $scope.loggedIn = true;
+        $scope.usersName = username;
+        $cookies.put('local', results.data);
+      }
+      else {
+        console.log('notpassed');
+      }
+    })
+  }
   $scope.signUp = function () {
     $scope.nameError = null;
     $scope.nameShortError = null;
@@ -60,13 +96,14 @@ app.controller('AccountController', ['$scope', '$http', function ($scope, $http)
             $scope.nameExists = 'That user name is taken';
           }
           if (response.email === true) {
-            $scope.emailExists = 'That Email is taken';
+            $scope.emailExists = 'That Email is already in use';
           }
           else {
             $http.post('api/authenticate', { username: username, email: email, password: password, passCheck: passCheck})
               .success(function (response) {
                 if (response === true) {
-
+                  $scope.loggedIn = true;
+                  $scope.usersName = username;
                 }
                 else {
                   $scope.serverError = 'Something went wrong. Please try again'

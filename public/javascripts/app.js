@@ -1,4 +1,4 @@
-var app = angular.module("hearthNode", ['ngRoute']);
+var app = angular.module("hearthNode", ['ngRoute', 'ngCookies']);
 
 app.config(function ($routeProvider, $locationProvider) {
   $routeProvider

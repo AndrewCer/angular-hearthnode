@@ -4,11 +4,18 @@ var favicon = require('serve-favicon');
 require('dotenv').load();
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
+var cookieSession = require('cookie-session');
 var bodyParser = require('body-parser');
 
 var api = require('./routes/api');
 
 var app = express();
+
+app.use(cookieSession({
+  name: 'session',
+  keys: [process.env.KEY_1, process.env.KEY_2]
+}))
+
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));

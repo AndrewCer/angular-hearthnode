@@ -5,6 +5,8 @@ var db = require('monk')('localhost/hearthnode');
 var cards = db.get('cards');
 var users = db.get('users');
 var validateSignUp = require('../lib/validations.js').validation;
+var bcrypt = require('bcrypt');
+var cookieSession = require('cookie-session');
 
 router.get('/deck/:class', function(req, res) {
   var className = req.params.class;
@@ -49,14 +51,47 @@ router.post('/authenticate', function (req, res) {
   var password = req.body.password;
   var passCheck = req.body.passCheck;
   if (validateSignUp(username, password, passCheck).length === 0) {
-    users.insert(req.body)
-    .then(function () {
-      res.json(true);
-    })
+    bcrypt.hash(password, 8, function(err, hash) {
+      users.insert({ username: username.toLowerCase(), email: email, password: hash})
+      .then(function () {
+        req.session.user = username
+        res.json(true);
+      })
+    });
   }
   else {
     res.json(false);
   }
+})
+
+router.post('/login', function (req, res) {
+  var username = req.body.username;
+  var password = req.body.password;
+  users.findOne({username: username.toLowerCase})
+  .then(function (user) {
+    var cryptCheck = bcrypt.compareSync(password, user.password);
+    if (cryptCheck) {
+      req.session.user = username
+      res.json(user._id);
+    }
+    else {
+      res.json(false);
+    }
+  })
+})
+
+router.post('/cookies', function (req, res) {
+  var userId = req.body.userinfo
+  users.findOne({_id: userId})
+  .then(function (user) {
+    if (user) {
+      req.session.user = user.username
+      res.json(user.username)
+    }
+    else {
+      res.json(false);
+    }
+  })
 })
 
   //for database seeed
