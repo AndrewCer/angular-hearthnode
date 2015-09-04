@@ -48,7 +48,6 @@ function ($scope, $routeParams, $http, Warrior, Shaman, Rogue, Paladin, Hunter, 
   }
   var stagedCardsArr = [];
   $scope.addCard = function (input) {
-    console.log(input);
     if (stagedCardsArr.length < 30) {
       $scope.cardsMaxed = null;
       input.count = 1;
@@ -63,7 +62,7 @@ function ($scope, $routeParams, $http, Warrior, Shaman, Rogue, Paladin, Hunter, 
     $scope.cardsMaxed = null;
     stagedCardsArr.splice(cardIndex, 1)
   }
-  $scope.stageTracking = function (card) {
-    console.log(card);
+  $scope.createDeck = function () {
+    console.log(stagedCardsArr);
   }
 }])

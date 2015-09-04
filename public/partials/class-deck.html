@@ -36,7 +36,13 @@
       <div class="stage-area col-md-4">
         <p>Card Staging Area</p>
         <h3 style='color: red;'>{{cardsMaxed}}</h3>
-        <h3>{{stagedCards.length || 0}}/30</h3>
+        <div class="container">
+          <div class="row">
+            <h3 class="staged-card-length">{{stagedCards.length || 0}}/30</h3>
+            <input type="button" class="btn btn-primary" value="Create Deck!" ng-show='stagedCards.length == 30' ng-click='createDeck()'>
+            <input type="button" class="btn submit-grayed" value="Not Enough Cards" ng-hide='stagedCards.length == 30'>
+          </div>
+        </div>
         <div ng-repeat='card in stagedCards track by $index'>
           <p>{{card.name}} <span class="glyphicon glyphicon-remove" ng-click='removeCard($index)'></span></p>
           <p></p>

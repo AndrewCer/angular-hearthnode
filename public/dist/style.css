@@ -70,6 +70,24 @@ a[ng-click]{
   overflow: auto;
 }
 
+.staged-card-length {
+  margin-right: 10px;
+  display: inline-block;
+}
+
+.submit-grayed {
+  background-color: rgba(0, 0, 0, 0.5);
+  border: none;
+  color: rgba(0, 0, 0, 0.5);
+}
+
+.submit-grayed:hover {
+  background-color: rgba(0, 0, 0, 0.5);
+  border: none;
+  color: rgba(0, 0, 0, 0.5);
+  cursor: default;
+}
+
 .filter-input, .filter-input-number {
   width: 200px;
   display: inline-block;
