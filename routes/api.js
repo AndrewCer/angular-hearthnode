@@ -53,9 +53,9 @@ router.post('/authenticate', function (req, res) {
   if (validateSignUp(username, password, passCheck).length === 0) {
     bcrypt.hash(password, 8, function(err, hash) {
       users.insert({ username: username.toLowerCase(), email: email, password: hash})
-      .then(function () {
+      .then(function (user) {
         req.session.user = username
-        res.json(true);
+        res.json(user._id);
       })
     });
   }
@@ -78,6 +78,11 @@ router.post('/login', function (req, res) {
       res.json(false);
     }
   })
+})
+
+router.get('/logout', function (req, res) {
+  req.session = null
+  res.json(true);
 })
 
 router.post('/cookies', function (req, res) {

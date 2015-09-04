@@ -14,6 +14,12 @@ app.config(function ($routeProvider, $locationProvider) {
     $locationProvider.html5Mode(true);
 })
 
+String.prototype.capitalize = function(){
+    return this.toLowerCase().replace( /\b\w/g, function (m) {
+        return m.toUpperCase();
+    });
+};
+
 app.controller('AccountController', ['$scope', '$http', '$cookies', function ($scope, $http, $cookies) {
   var checkLogin = function () {
     var userinfo = $cookies.get('local');
@@ -22,7 +28,7 @@ app.controller('AccountController', ['$scope', '$http', '$cookies', function ($s
       .then(function (result) {
         if (result.data) {
           $scope.loggedIn = true;
-          $scope.usersName = result.data;
+          $scope.usersName = result.data.capitalize();
         }
         else {
           return null
@@ -32,8 +38,6 @@ app.controller('AccountController', ['$scope', '$http', '$cookies', function ($s
     else {
       return null;
     }
-    // $scope.loggedIn = true;
-    // $scope.usersName = username;
   }
   checkLogin();
   $scope.logIn = function () {
@@ -43,12 +47,21 @@ app.controller('AccountController', ['$scope', '$http', '$cookies', function ($s
     .then(function (results) {
       if (results.data) {
         $scope.loggedIn = true;
-        $scope.usersName = username;
+        $scope.usersName = username.capitalize();
         $cookies.put('local', results.data);
       }
       else {
         console.log('notpassed');
       }
+    })
+  }
+  $scope.logOut = function () {
+    $scope.loggedIn = false;
+    $scope.usersName = null;
+    $cookies.remove('local');
+    $http.get('api/logout')
+    .then(function (response) {
+      return true
     })
   }
   $scope.signUp = function () {
@@ -101,9 +114,10 @@ app.controller('AccountController', ['$scope', '$http', '$cookies', function ($s
           else {
             $http.post('api/authenticate', { username: username, email: email, password: password, passCheck: passCheck})
               .success(function (response) {
-                if (response === true) {
+                if (response) {
                   $scope.loggedIn = true;
-                  $scope.usersName = username;
+                  $scope.usersName = username.capitalize();
+                  $cookies.put('local', response);
                 }
                 else {
                   $scope.serverError = 'Something went wrong. Please try again'
