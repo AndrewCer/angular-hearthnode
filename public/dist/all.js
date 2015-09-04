@@ -10,6 +10,10 @@ app.config(function ($routeProvider, $locationProvider) {
       templateUrl: 'partials/class-deck.html',
       controller: 'ClassDeckController'
     })
+    .when('/user-decks/:userId', {
+      templateUrl: 'partials/user-decks.html',
+      controller: 'UserDeckController'
+    })
     .otherwise({redirectTo: '/'})
     $locationProvider.html5Mode(true);
 })
@@ -21,6 +25,7 @@ String.prototype.capitalize = function(){
 };
 
 app.controller('AccountController', ['$scope', '$http', '$cookies', function ($scope, $http, $cookies) {
+  $scope.userinfo = $cookies.get('local');
   var checkLogin = function () {
     var userinfo = $cookies.get('local');
     if (userinfo) {
@@ -153,9 +158,9 @@ function ($scope, $http, Warrior, Shaman, Rogue, Paladin, Hunter, Druid, Warlock
   }
 }])
 
-app.controller('ClassDeckController', ['$scope', '$routeParams', '$http', 'Warrior', 'Shaman', 'Rogue',
-'Paladin', 'Hunter', 'Druid', 'Warlock', 'Mage', 'Priest',
-function ($scope, $routeParams, $http, Warrior, Shaman, Rogue, Paladin, Hunter, Druid, Warlock, Mage, Priest) {
+app.controller('ClassDeckController', ['$scope', '$routeParams', '$http', '$location', 'Warrior', 'Shaman', 'Rogue',
+'Paladin', 'Hunter', 'Druid', 'Warlock', 'Mage', 'Priest', 'usersDeck', '$cookies',
+function ($scope, $routeParams, $http, $location, Warrior, Shaman, Rogue, Paladin, Hunter, Druid, Warlock, Mage, Priest, usersDeck, $cookies) {
   var deckClass = $routeParams.class;
   $scope.deckClass = $routeParams.class
   if (eval(deckClass).cards.length > 0) {
@@ -205,9 +210,20 @@ function ($scope, $routeParams, $http, Warrior, Shaman, Rogue, Paladin, Hunter, 
     }
   }
   $scope.createDeck = function () {
+    var userinfo = $cookies.get('local');
     //send deck from stage area to factory and also make api call to store deck to db
-    usersDeck.currentDeck(stagedCards);
+    usersDeck.currentDeck(stagedCardsArr)
+    $location.path('/user-decks/' + userinfo);
   }
+}])
+
+app.controller('UserDeckController', ['$scope', '$http', '$cookies', 'usersDeck', function ($scope, $http, $cookies, usersDeck) {
+  var userinfo = $cookies.get('local');
+  $http.post('api/cookies', {userinfo: userinfo})
+  .then(function (response) {
+    $scope.userName = response.data.capitalize();
+  })
+  // $scope.cards = usersDeck.cards[0];
 }])
 
 app.directive('modelUndefined', function(){

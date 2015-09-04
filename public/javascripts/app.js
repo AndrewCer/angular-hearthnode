@@ -10,6 +10,10 @@ app.config(function ($routeProvider, $locationProvider) {
       templateUrl: 'partials/class-deck.html',
       controller: 'ClassDeckController'
     })
+    .when('/user-decks/:userId', {
+      templateUrl: 'partials/user-decks.html',
+      controller: 'UserDeckController'
+    })
     .otherwise({redirectTo: '/'})
     $locationProvider.html5Mode(true);
 })
