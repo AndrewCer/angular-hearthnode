@@ -79,7 +79,7 @@ function ($scope, $routeParams, $http, Warrior, Shaman, Rogue, Paladin, Hunter, 
     stagedCardsArr.splice(cardIndex, 1)
   }
   $scope.createDeck = function () {
-    console.log(stagedCardsArr);
+    //send deck from stage area to factory and also make api call to store deck to db
   }
 }])
 
@@ -93,6 +93,12 @@ app.directive('modelUndefined', function(){
     }
   }
 });
+
+// TODO: temp store cards from staging area for quick access
+//perhaps also store all users decks here?
+app.factory('storeusersdeck', function () {
+
+})
 
 app.factory('Warrior', function () {
   var arr = []

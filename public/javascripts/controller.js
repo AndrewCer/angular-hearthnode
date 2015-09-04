@@ -63,6 +63,6 @@ function ($scope, $routeParams, $http, Warrior, Shaman, Rogue, Paladin, Hunter, 
     stagedCardsArr.splice(cardIndex, 1)
   }
   $scope.createDeck = function () {
-    console.log(stagedCardsArr);
+    //send deck from stage area to factory and also make api call to store deck to db
   }
 }])
