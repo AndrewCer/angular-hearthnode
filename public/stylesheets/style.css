@@ -30,7 +30,7 @@ a[ng-click]{
 
 .glyphicon-remove:hover {
   cursor: pointer;
-  color: white;
+  color: red;
 }
 
 .jumbotron {
@@ -55,6 +55,14 @@ a[ng-click]{
   -moz-background-size: cover;
   -o-background-size: cover;
   background-size: cover;
+}
+
+.user {
+
+}
+
+.back-button {
+  margin-bottom: 20px;
 }
 
 .sub-header {

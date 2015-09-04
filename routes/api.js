@@ -52,9 +52,9 @@ router.post('/authenticate', function (req, res) {
   var passCheck = req.body.passCheck;
   if (validateSignUp(username, password, passCheck).length === 0) {
     bcrypt.hash(password, 8, function(err, hash) {
-      users.insert({ username: username.toLowerCase(), email: email, password: hash})
+      users.insert({ username: username.toLowerCase(), email: email, password: hash, decks: []})
       .then(function (user) {
-        req.session.user = username
+        req.session.user = username.toLowerCase()
         res.json(user._id);
       })
     });
@@ -71,7 +71,7 @@ router.post('/login', function (req, res) {
   .then(function (user) {
     var cryptCheck = bcrypt.compareSync(password, user.password);
     if (cryptCheck) {
-      req.session.user = username
+      req.session.user = username.toLowerCase()
       res.json(user._id);
     }
     else {
@@ -90,8 +90,35 @@ router.post('/cookies', function (req, res) {
   users.findOne({_id: userId})
   .then(function (user) {
     if (user) {
-      req.session.user = user.username
+      req.session.user = user.username.toLowerCase()
       res.json(user.username)
+    }
+    else {
+      res.json(false);
+    }
+  })
+})
+
+router.post('/create-deck', function (req, res) {
+  var data = req.body;
+  var cards = {};
+  cards[data.classDeck] = data.cards;
+  var userCookie = req.session.user
+  users.update({username: userCookie}, {$addToSet: {decks: cards} })
+  then(function (user) {
+    console.log(user);
+  })
+})
+
+router.post('/users-decks', function (req, res) {
+  var userId = req.body.userinfo;
+  users.findOne({_id: userId})
+  .then(function (user) {
+    if (user) {
+      var returnObj = {};
+      returnObj.username = user.username;
+      returnObj.decks = user.decks;
+      res.json(returnObj)
     }
     else {
       res.json(false);

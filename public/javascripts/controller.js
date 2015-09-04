@@ -139,8 +139,8 @@ function ($scope, $http, Warrior, Shaman, Rogue, Paladin, Hunter, Druid, Warlock
 }])
 
 app.controller('ClassDeckController', ['$scope', '$routeParams', '$http', '$location', 'Warrior', 'Shaman', 'Rogue',
-'Paladin', 'Hunter', 'Druid', 'Warlock', 'Mage', 'Priest', 'usersDeck', '$cookies',
-function ($scope, $routeParams, $http, $location, Warrior, Shaman, Rogue, Paladin, Hunter, Druid, Warlock, Mage, Priest, usersDeck, $cookies) {
+'Paladin', 'Hunter', 'Druid', 'Warlock', 'Mage', 'Priest', '$cookies',
+function ($scope, $routeParams, $http, $location, Warrior, Shaman, Rogue, Paladin, Hunter, Druid, Warlock, Mage, Priest, $cookies) {
   var deckClass = $routeParams.class;
   $scope.deckClass = $routeParams.class
   if (eval(deckClass).cards.length > 0) {
@@ -192,16 +192,42 @@ function ($scope, $routeParams, $http, $location, Warrior, Shaman, Rogue, Paladi
   $scope.createDeck = function () {
     var userinfo = $cookies.get('local');
     //send deck from stage area to factory and also make api call to store deck to db
-    usersDeck.currentDeck(stagedCardsArr)
-    $location.path('/user-decks/' + userinfo);
+    // usersDeck.currentDeck(stagedCardsArr)
+    $http.post('api/create-deck', {classDeck: deckClass, cards: stagedCardsArr})
+    .then(function (response) {
+      $location.path('/user-decks/' + userinfo);
+    })
   }
 }])
 
-app.controller('UserDeckController', ['$scope', '$http', '$cookies', 'usersDeck', function ($scope, $http, $cookies, usersDeck) {
+app.controller('UserDeckController', ['$scope', '$http', '$cookies', function ($scope, $http, $cookies) {
   var userinfo = $cookies.get('local');
-  $http.post('api/cookies', {userinfo: userinfo})
+  $http.post('api/users-decks', {userinfo: userinfo})
   .then(function (response) {
-    $scope.userName = response.data.capitalize();
+    var decks = response.data.decks;
+    var deckKeys = [];
+    for (var i = 0; i < decks.length; i++) {
+      deckKeys.push(Object.keys(decks[i])[0].toLowerCase());
+    }
+    $scope.decks = response.data.decks;
+    $scope.deckKeys = deckKeys
+    $scope.userName = response.data.username.capitalize();
   })
-  // $scope.cards = usersDeck.cards[0];
+  $scope.getDeck = function (deck) {
+    var decks = $scope.decks;
+    var deck = deck.capitalize();
+    var returnDeck;
+    $scope.hideMain = true;
+    for (var i = 0; i < decks.length; i++) {
+      if (deck === Object.keys(decks[i])[0]) {
+        returnDeck = decks[i]
+      }
+    }
+    $scope.deckName = deck;
+    $scope.clickedDeck = returnDeck[deck];
+  }
+  $scope.removeCard = function (cardIndex) {
+    console.log(cardIndex);
+    // stagedCardsArr.splice(cardIndex, 1)
+  }
 }])
