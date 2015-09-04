@@ -58,7 +58,11 @@ a[ng-click]{
 }
 
 .user {
-
+  background: url("/images/banners/blackrock-mountain-wallpaper.jpg") no-repeat;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
 }
 
 .back-button {
