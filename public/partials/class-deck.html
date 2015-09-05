@@ -44,7 +44,11 @@
             <input type="button" class='btn btn-danger' value="Clear Deck" ng-show='stagedCards.length > 0' ng-click='clearDeck()'>
           </div>
         </div>
-        <div ng-repeat='card in stagedCards track by $index'>
+        <div ng-hide='stagedCards.length'>
+          <h2>Your Deck is Empty</h2>
+          <h2>Click cards to get started</h2>
+        </div>
+        <div ng-repeat='card in stagedCards track by $index' class="staged-cards">
           <p>{{card.name}} <span class="glyphicon glyphicon-remove" ng-click='removeCard($index)'></span></p>
           <p></p>
         </div>

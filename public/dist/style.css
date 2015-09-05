@@ -132,6 +132,10 @@ a[ng-click]{
   overflow: auto;
 }
 
+.staged-cards {
+  margin-top: 15px;
+}
+
 .staged-card-length {
   margin-right: 10px;
   display: inline-block;
