@@ -29,6 +29,7 @@ String.prototype.capitalize = function(){
 };
 
 app.controller('AccountController', ['$scope', '$http', '$cookies', function ($scope, $http, $cookies) {
+  $scope.checkActive = true;
   $scope.userinfo = $cookies.get('local');
   var checkLogin = function () {
     var userinfo = $cookies.get('local');
@@ -272,7 +273,7 @@ app.controller('UserDeckController', ['$scope', '$http', '$cookies', '$location'
     var userinfo = $cookies.get('local');
     $http.post('api/delete-deck', {deck: deck, userinfo: userinfo})
     .then(function (result) {
-      
+
     })
   }
 }])

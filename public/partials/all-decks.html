@@ -41,7 +41,7 @@
   <div class="container" ng-hide='hideSection'>
     <div class="row">
       <div class="col-md-offset-2">
-        <div class="all-cards" ng-repeat='deck in allPostedDecks'>
+        <div class="all-cards" ng-repeat='deck in allPostedDecks track by $index'>
           <div class='single-card' ng-click='clickedPost(deck)'>
             <a>
             <img ng-src='{{deck.deck[0].img}}' alt="{{deck.deck[0].name}}">
