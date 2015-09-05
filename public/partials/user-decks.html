@@ -49,11 +49,11 @@
           <div class="row">
             <h3 class="staged-card-length">{{deckName}} Deck</h3>
               <input type="button" class="btn btn-primary" value="Publish Deck" ng-click='publish = !publish'>
-              <input type="button" class="btn btn-warning" value="Edit Deck" ng-click='editing = !editing'>
+              <input type="button" class="btn btn-danger" value="Delete Deck" ng-click='deleteDeck(deckName)'>
             </div>
           </div>
         <div ng-repeat='card in clickedDeck track by $index'>
-          <p>{{card.name}} <span ng-show='editing' class="glyphicon glyphicon-remove" ng-click='removeCard($index)'></span></p>
+          <p>{{card.name}}</p>
           <!-- display cost and other things -->
         </div>
       </div>

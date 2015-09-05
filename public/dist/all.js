@@ -268,6 +268,13 @@ app.controller('UserDeckController', ['$scope', '$http', '$cookies', '$location'
       $location.path('/all-decks');
     })
   }
+  $scope.deleteDeck = function (deck) {
+    var userinfo = $cookies.get('local');
+    $http.post('api/delete-deck', {deck: deck, userinfo: userinfo})
+    .then(function (result) {
+      
+    })
+  }
 }])
 
 app.controller('PublishedDeckController', ['$scope', '$http', '$cookies', function ($scope, $http, $cookies) {
