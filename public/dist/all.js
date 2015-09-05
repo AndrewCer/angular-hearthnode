@@ -14,6 +14,10 @@ app.config(function ($routeProvider, $locationProvider) {
       templateUrl: 'partials/user-decks.html',
       controller: 'UserDeckController'
     })
+    .when('/all-decks', {
+      templateUrl: 'partials/all-decks.html',
+      controller: 'PublishedDeckController'
+    })
     .otherwise({redirectTo: '/'})
     $locationProvider.html5Mode(true);
 })
@@ -54,6 +58,7 @@ app.controller('AccountController', ['$scope', '$http', '$cookies', function ($s
         $scope.loggedIn = true;
         $scope.usersName = username.capitalize();
         $cookies.put('local', results.data);
+        $scope.userinfo = $cookies.get('local');
       }
       else {
         console.log('notpassed');
@@ -211,16 +216,19 @@ function ($scope, $routeParams, $http, $location, Warrior, Shaman, Rogue, Paladi
   }
   $scope.createDeck = function () {
     var userinfo = $cookies.get('local');
-    //send deck from stage area to factory and also make api call to store deck to db
-    // usersDeck.currentDeck(stagedCardsArr)
-    $http.post('api/create-deck', {classDeck: deckClass, cards: stagedCardsArr})
-    .then(function (response) {
-      $location.path('/user-decks/' + userinfo);
-    })
+    if (userinfo) {
+      $http.post('api/create-deck', {classDeck: deckClass, cards: stagedCardsArr, user: userinfo})
+      .then(function (response) {
+        $location.path('/user-decks/' + userinfo);
+      })
+    }
+    else {
+      $scope.mustLogin = 'Please log in to create decks'
+    }
   }
 }])
 
-app.controller('UserDeckController', ['$scope', '$http', '$cookies', function ($scope, $http, $cookies) {
+app.controller('UserDeckController', ['$scope', '$http', '$cookies', '$location', function ($scope, $http, $cookies, $location) {
   var userinfo = $cookies.get('local');
   $http.post('api/users-decks', {userinfo: userinfo})
   .then(function (response) {
@@ -254,10 +262,27 @@ app.controller('UserDeckController', ['$scope', '$http', '$cookies', function ($
   $scope.publishDeck = function () {
     var deck = $scope.publishDeckName;
     var deckDescrip = $scope.deckDiscription;
-    // console.log(deck, deckDescrip, userinfo);
-    $http.post('api/live-decks', { deckName: deck, description: deckDescrip, userinfo: userinfo })
+    var publishedDeckArray = $scope.clickedDeck
+    $http.post('api/live-decks', { deckName: deck, description: deckDescrip, deck: publishedDeckArray, userinfo: userinfo })
     .then(function (response) {
-      console.log(response.data);
+      $location.path('/all-decks');
+    })
+  }
+}])
+
+app.controller('PublishedDeckController', ['$scope', '$http', '$cookies', function ($scope, $http, $cookies) {
+  $http.get('api/all-decks')
+  .then(function (results) {
+    $scope.allPostedDecks = results.data;
+  })
+  $scope.clickedPost = function (deck) {
+    $scope.hideSection = true;
+    $scope.decksName = deck.deckName;
+    $scope.decksCards = deck.deck;
+    $scope.deckDescription = deck.description
+    $http.post('api/deck-query', {user: deck.postedBy})
+    .then(function (result) {
+      $scope.postUser = result.data.capitalize();
     })
   }
 }])

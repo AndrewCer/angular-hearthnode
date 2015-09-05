@@ -32,6 +32,10 @@ a[ng-click]{
   color: red;
 }
 
+.center-me {
+  margin-left: 50px;
+}
+
 .glyphicon-remove:hover {
   cursor: pointer;
   color: red;
@@ -62,6 +66,14 @@ a[ng-click]{
 }
 
 .user {
+  background: url("/images/banners/game-board.png") no-repeat;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+.all-decks {
   background: url("/images/banners/blackrock-mountain-wallpaper.jpg") no-repeat;
   -webkit-background-size: cover;
   -moz-background-size: cover;
@@ -79,6 +91,22 @@ a[ng-click]{
 
 .class-cards {
   display: inline-block;
+}
+
+.all-cards {
+  display: inline-block;
+  margin-right: 20px;
+  text-align: center;
+}
+
+.all-cards:hover {
+  cursor: pointer;
+  color: blue;
+}
+
+.larger-img {
+  width: 300px;
+  height: 400px;
 }
 
 .single-card img{

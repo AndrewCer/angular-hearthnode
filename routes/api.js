@@ -102,14 +102,19 @@ router.post('/cookies', function (req, res) {
 
 router.post('/create-deck', function (req, res) {
   var data = req.body;
-  var cards = {};
-  cards[data.classDeck] = data.cards;
-  var userCookie = req.session.user
-  //change to find and if data.classDeck === user.decks[i] dont update deck, else update
-  users.update({username: userCookie}, {$addToSet: {decks: cards} })
-  .then(function () {
-    res.json(true)
-  })
+  if (!data.user) {
+    res.json(false)
+  }
+  else {
+    var cards = {};
+    cards[data.classDeck] = data.cards;
+    var userCookie = req.session.user
+    //change to find and if data.classDeck === user.decks[i] dont update deck, else update
+    users.update({username: userCookie}, {$addToSet: {decks: cards} })
+    .then(function () {
+      res.json(true)
+    })
+  }
 })
 
 router.post('/users-decks', function (req, res) {
@@ -132,9 +137,25 @@ router.post('/live-decks', function (req, res) {
   var deckName = req.body.deckName;
   var description = req.body.description;
   var userId = req.body.userinfo;
-  postedDecks.insert({ deckName: deckName, description: description, postedBy: userId})
+  var deck = req.body.deck
+  postedDecks.insert({ deckName: deckName, description: description, deck: deck, postedBy: userId })
   .then(function () {
     res.json(true)
+  })
+})
+
+router.get('/all-decks', function (req, res) {
+  postedDecks.find()
+  .then(function (allDecks) {
+    res.json(allDecks)
+  })
+})
+
+router.post('/deck-query', function (req, res) {
+  var userId = req.body.user;
+  users.findOne({_id: userId})
+  .then(function (user) {
+    res.json(user.username)
   })
 })
 

@@ -1,0 +1,55 @@
+<div ng-controller='PublishedDeckController'>
+  <div class="jumbotron all-decks">
+      <div class="container">
+      </div>
+  </div>
+  <div class="container sub-header" ng-hide='hideSection'>
+    <div class="row">
+      <h1>All User Posted Decks</h1>
+    </div>
+  </div>
+  <div class="container sub-header" ng-show='hideSection'>
+    <div class="row">
+      <h1>{{decksName}}</h1>
+      <input type="button" class="btn btn-info back-button" ng-click='hideSection = false' value='Back to Decks'>
+    </div>
+  </div>
+  <div class="row card-container" ng-show='hideSection'>
+    <div class="card-scroller col-md-8">
+      <div class="class-cards" ng-repeat='deck in decksCards'>
+        <div class="single-card">
+          <a>
+          <img ng-src='{{deck.img}}' alt="{{deck.name}}">
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="stage-area col-md-4">
+      <div class="container">
+        <div class="row">
+          <h1>Info</h1>
+        </div>
+      </div>
+      <div>
+        <p>Description: {{deckDescription}}</p>
+      </div>
+      <div>
+        <p>Posted By: {{postUser}}</p>
+      </div>
+    </div>
+  </div>
+  <div class="container" ng-hide='hideSection'>
+    <div class="row">
+      <div class="col-md-offset-2">
+        <div class="all-cards" ng-repeat='deck in allPostedDecks'>
+          <div class='single-card' ng-click='clickedPost(deck)'>
+            <a>
+            <img ng-src='{{deck.deck[0].img}}' alt="{{deck.deck[0].name}}">
+            </a>
+            <h3 style='margin-top: 0;'>{{deck.deckName}}</h3>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
