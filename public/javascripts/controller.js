@@ -228,6 +228,16 @@ app.controller('UserDeckController', ['$scope', '$http', '$cookies', function ($
   }
   $scope.removeCard = function (cardIndex) {
     console.log(cardIndex);
+    // TODO: remove selected card from array and api call to remove from db
     // stagedCardsArr.splice(cardIndex, 1)
+  }
+  $scope.publishDeck = function () {
+    var deck = $scope.publishDeckName;
+    var deckDescrip = $scope.deckDiscription;
+    // console.log(deck, deckDescrip, userinfo);
+    $http.post('api/live-decks', { deckName: deck, description: deckDescrip, userinfo: userinfo })
+    .then(function (response) {
+      console.log(response.data);
+    })
   }
 }])

@@ -24,6 +24,10 @@ a[ng-click]{
   margin-bottom: 10px;
 }
 
+.publish-form input, .publish-form textarea {
+  margin-bottom: 10px;
+}
+
 .colorme-red{
   color: red;
 }

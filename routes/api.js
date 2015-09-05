@@ -4,6 +4,7 @@ var unirest = require('unirest');
 var db = require('monk')('localhost/hearthnode');
 var cards = db.get('cards');
 var users = db.get('users');
+var postedDecks = db.get('decks');
 var validateSignUp = require('../lib/validations.js').validation;
 var bcrypt = require('bcrypt');
 var cookieSession = require('cookie-session');
@@ -124,6 +125,16 @@ router.post('/users-decks', function (req, res) {
     else {
       res.json(false);
     }
+  })
+})
+
+router.post('/live-decks', function (req, res) {
+  var deckName = req.body.deckName;
+  var description = req.body.description;
+  var userId = req.body.userinfo;
+  postedDecks.insert({ deckName: deckName, description: description, postedBy: userId})
+  .then(function () {
+    res.json(true)
   })
 })
 

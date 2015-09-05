@@ -3,6 +3,24 @@
       <div class="container">
       </div>
   </div>
+  <div class="container publish-form" ng-show='publish'>
+    <div class="row">
+      <div class='col-md-8 col-md-offset-2'>
+        <form name="userForm" ng-submit="publishDeck()" class='form-action'>
+          <div class="form-group">
+            <h1>Publish Deck</h1>
+            <p>(doing so will make this deck and your username visable to everyone)</p>
+            <label for="publishDeckName">Deck Name</label>
+            <input autofocus type="text" class="form-control" ng-model='publishDeckName' id="publishDeckName" placeholder="Awesome Rush Deck" required>
+            <label for="descript">Description</label>
+            <textarea class="form-control" ng-model='deckDiscription' required></textarea>
+            <button type="submit" class="btn btn-primary" ng-click='publish = false'>Publish Deck!</button>
+            <button type="button" class="btn btn-default" ng-click='publish = false'>Cancel</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
   <div class="container sub-header" ng-hide='hideMain'>
     <div class="row">
       <h1>{{userName}}'s Decks</h1>
@@ -30,9 +48,7 @@
         <div class="container">
           <div class="row">
             <h3 class="staged-card-length">{{deckName}} Deck</h3>
-              <!-- <input type="button" class="btn btn-primary" value="Create Deck!" ng-show='stagedCards.length == 30' ng-click='createDeck()'> -->
-              <!-- <input type="button" class="btn submit-grayed" value="Create Deck" ng-hide='stagedCards.length == 30'> -->
-              <!-- <input type="button" class='btn btn-danger' value="Clear Deck" ng-show='stagedCards.length > 0' ng-click='clearDeck()'> -->
+              <input type="button" class="btn btn-primary" value="Publish Deck" ng-click='publish = !publish'>
               <input type="button" class="btn btn-warning" value="Edit Deck" ng-click='editing = !editing'>
             </div>
           </div>
