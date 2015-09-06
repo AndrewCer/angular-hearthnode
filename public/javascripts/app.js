@@ -18,6 +18,6 @@ app.config(function ($routeProvider, $locationProvider) {
       templateUrl: 'partials/all-decks.html',
       controller: 'PublishedDeckController'
     })
-    // .otherwise({redirectTo: '/'})
+    .otherwise({redirectTo: '/'})
     $locationProvider.html5Mode(true);
 })

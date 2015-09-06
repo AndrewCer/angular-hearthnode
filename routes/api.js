@@ -181,12 +181,15 @@ router.get('/all-decks', function (req, res) {
 })
 
 router.post('/deck-query', function (req, res) {
-  // var userId = req.body.user;
-  // users.findOne({_id: userId})
-  // .then(function (user) {
-  //   res.json(user.username)
-  // })
-  //for database seeed
+  var userId = req.body.user;
+  users.findOne({_id: userId})
+  .then(function (user) {
+    res.json(user.username)
+  })
+})
+
+router.get('/seed-me/:class', function (req, res) {
+  for database seeed
   unirest.get("https://omgvamp-hearthstone-v1.p.mashape.com/cards/classes/" + req.params.class)
   .header("X-Mashape-Key", process.env.MASH_KEY)
   .end(function (result) {
@@ -198,7 +201,6 @@ router.post('/deck-query', function (req, res) {
     res.json(result.body)
   });
 })
-
 
 
 module.exports = router;
