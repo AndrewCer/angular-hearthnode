@@ -132,6 +132,11 @@ a[ng-click]{
   overflow: auto;
 }
 
+.no-scroll {
+  /*width: 100%;*/
+  overflow: hidden;
+}
+
 .staged-cards {
   margin-top: 15px;
 }
