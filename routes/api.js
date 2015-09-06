@@ -189,7 +189,7 @@ router.post('/deck-query', function (req, res) {
 })
 
 router.get('/seed-me/:class', function (req, res) {
-  for database seeed
+  // for database seeed
   unirest.get("https://omgvamp-hearthstone-v1.p.mashape.com/cards/classes/" + req.params.class)
   .header("X-Mashape-Key", process.env.MASH_KEY)
   .end(function (result) {
