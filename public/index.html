@@ -73,17 +73,12 @@
           <form name="userForm" ng-submit="logIn()" class='form-action'>
             <div class="form-group">
               <h1>Log In</h1>
-              <p class='colorme-red'>{{serverError}}</p>
-              <p class='colorme-red'>{{nameError}}</p>
-              <p class='colorme-red'>{{nameLongError}}</p>
-              <p class='colorme-red'>{{nameShortError}}</p>
-              <p class='colorme-red'>{{nameExists}}</p>
+              <p class='colorme-red'>{{userPassError}}</p>
               <label for="userName">User Name</label>
               <input autofocus type="text" class="form-control" ng-model='loginName' id="userName" placeholder="User Name" required>
-              <p class='colorme-red'>{{passwordError}}</p>
               <label for="password">Password</label>
               <input type="password" class="form-control" ng-model='loginPassword' id="password" placeholder="Password" required>
-              <button type="submit" class="btn btn-primary" ng-click='showLogin = false'>Log In!</button>
+              <button type="submit" class="btn btn-primary">Log In!</button>
               <button type="button" class="btn btn-default" ng-click='showLogin = false'>Cancel</button>
             </div>
           </form>
@@ -115,7 +110,7 @@
               <input type="password" class="form-control" ng-model='password' id="password" required>
               <label for="pass-check">Re-type Password</label>
               <input type="password" class="form-control" ng-model='passCheck' id="pass-check" required>
-              <button type="submit" class="btn btn-primary" ng-click='showForm = false'>Sign Up!</button>
+              <button type="submit" class="btn btn-primary">Sign Up!</button>
               <button type="button" class="btn btn-default" ng-click='showForm = false'>Cancel</button>
             </div>
           </form>

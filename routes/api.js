@@ -70,10 +70,15 @@ router.post('/login', function (req, res) {
   var password = req.body.password;
   users.findOne({username: username.toLowerCase()})
   .then(function (user) {
-    var cryptCheck = bcrypt.compareSync(password, user.password);
-    if (cryptCheck) {
-      req.session.user = username.toLowerCase()
-      res.json(user._id);
+    if (user) {
+      var cryptCheck = bcrypt.compareSync(password, user.password);
+      if (cryptCheck) {
+        req.session.user = username.toLowerCase()
+        res.json(user._id);
+      }
+      else {
+        res.json(false);
+      }
     }
     else {
       res.json(false);

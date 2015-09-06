@@ -14,7 +14,7 @@
             <input autofocus type="text" class="form-control" ng-model='publishDeckName' id="publishDeckName" placeholder="Awesome Rush Deck" required>
             <label for="descript">Description</label>
             <textarea class="form-control" ng-model='deckDiscription' required></textarea>
-            <button type="submit" class="btn btn-primary" ng-click='publish = false'>Publish Deck!</button>
+            <button type="submit" class="btn btn-primary">Publish Deck!</button>
             <button type="button" class="btn btn-default" ng-click='publish = false'>Cancel</button>
           </div>
         </form>
@@ -25,8 +25,10 @@
     <div class="row">
       <h1>{{usersName}}'s Decks</h1>
     </div>
-    <div ng-hide='!deckKeys'>
-      <h1>hey</h1>
+    <div ng-hide='deckKeys.length'>
+      <h3>You have not made any decks</h3>
+      <p>Click the button below to pick a class and then build a deck!</p>
+      <a href="/"><input type="button" value="Class Choices" style="margin-bottom: 20px;" class="btn btn-primary"></a>
     </div>
     <div class="row">
       <div class="class-cards" ng-repeat='deck in deckKeys track by $index'>
@@ -52,7 +54,7 @@
           <div class="row">
             <h3 class="staged-card-length">{{deckName}} Deck</h3>
               <input type="button" class="btn btn-primary" value="Publish Deck" ng-click='publish = !publish'>
-              <input type="button" class="btn btn-danger" value="Delete Deck" ng-click='deleteDeck(deckName)'>
+              <!-- <input type="button" class="btn btn-danger" value="Delete Deck" ng-click='deleteDeck(deckName)'> -->
             </div>
           </div>
         <div ng-repeat='card in clickedDeck track by $index'>

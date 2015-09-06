@@ -38,6 +38,7 @@ app.controller('AccountController', ['$scope', '$http', '$cookies', '$location',
         if (result.data) {
           $scope.loggedIn = true;
           $scope.usersName = result.data.capitalize();
+          $scope.userinfo = $cookies.get('local');
         }
         else {
           return null
@@ -59,11 +60,12 @@ app.controller('AccountController', ['$scope', '$http', '$cookies', '$location',
         $scope.usersName = username.capitalize();
         $cookies.put('local', results.data);
         $scope.userinfo = $cookies.get('local');
+        $scope.showLogin = false;
         $scope.loginName = null;
         $scope.loginPassword = null;
       }
       else {
-        return false
+        $scope.userPassError = 'Username or password do not match'
       }
     })
   }
@@ -89,27 +91,36 @@ app.controller('AccountController', ['$scope', '$http', '$cookies', '$location',
     var email = $scope.email;
     var password = $scope.password;
     var passCheck = $scope.passCheck;
+    var nullPasses = function () {
+      $scope.password = null;
+      $scope.passCheck = null;
+    }
     var validationCheck = function (name, password, passwordCheck) {
       var illegals = /\W/;
       var errorArray = [];
       if (name.length < 5) {
         $scope.nameShortError = 'Username is too short. Must be longer than 4 characters';
+        nullPasses();
         errorArray.push(true);
       }
       if (name.length > 15) {
         $scope.nameLongError = 'Username is too long. Must be less than 15 characters';
+        nullPasses();
         errorArray.push(true);
       }
       if (illegals.test(name)) {
         $scope.nameError = 'Username contains illegal characters. Can only use letters, numbers and underscores (no spaces)';
+        nullPasses();
         errorArray.push(true);
       }
       if (password.length < 6) {
         $scope.passwordError = 'Password is too short. Must be greater than 5 characters';
+        nullPasses();
         errorArray.push(true);
       }
       if (password != passwordCheck) {
         $scope.passwordMatchError = 'Passwords do not match';
+        nullPasses();
         errorArray.push(true);
       }
       return errorArray;
@@ -119,9 +130,11 @@ app.controller('AccountController', ['$scope', '$http', '$cookies', '$location',
         .success(function (response) {
           if (response.username === true) {
             $scope.nameExists = 'That user name is taken';
+            nullPasses();
           }
           if (response.email === true) {
             $scope.emailExists = 'That Email is already in use';
+            nullPasses();
           }
           else {
             $http.post('api/authenticate', { username: username, email: email, password: password, passCheck: passCheck})
@@ -131,9 +144,11 @@ app.controller('AccountController', ['$scope', '$http', '$cookies', '$location',
                   $scope.usersName = username.capitalize();
                   $cookies.put('local', response);
                   $scope.userinfo = $cookies.get('local');
+                  $scope.showForm = false;
                 }
                 else {
                   $scope.serverError = 'Something went wrong. Please try again'
+                  nullPasses();
                 }
             });
           }
@@ -241,7 +256,7 @@ app.controller('UserDeckController', ['$scope', '$http', '$cookies', '$location'
       deckKeys.push(Object.keys(decks[i])[0].toLowerCase());
     }
     $scope.decks = response.data.decks;
-    $scope.deckKeys = deckKeys
+    $scope.deckKeys = deckKeys;
     $scope.userName = response.data.username.capitalize();
   })
   $scope.getDeck = function (deck) {
@@ -257,16 +272,16 @@ app.controller('UserDeckController', ['$scope', '$http', '$cookies', '$location'
     $scope.deckName = deck;
     $scope.clickedDeck = returnDeck[deck];
   }
-  $scope.removeCard = function (cardIndex) {
-    // TODO: remove selected card from array and api call to remove from db
-    // stagedCardsArr.splice(cardIndex, 1)
-  }
   $scope.publishDeck = function () {
     var deck = $scope.publishDeckName;
     var deckDescrip = $scope.deckDiscription;
     var publishedDeckArray = $scope.clickedDeck
     $http.post('api/live-decks', { deckName: deck, description: deckDescrip, deck: publishedDeckArray, userinfo: userinfo })
     .then(function (response) {
+      $scope.publish = false;
+      $scope.publishDeckName = null;
+      $scope.deckDiscription = null;
+      $scope.clickedDeck = null;
       $location.path('/all-decks');
     })
   }
@@ -282,8 +297,9 @@ app.controller('UserDeckController', ['$scope', '$http', '$cookies', '$location'
 app.controller('PublishedDeckController', ['$scope', '$http', '$cookies', function ($scope, $http, $cookies) {
   $http.get('api/all-decks')
   .then(function (results) {
-    $scope.allPostedDecks = results.data;
+    $scope.allPostedDecks = results.data.reverse();
   })
+  $scope.mathz = Math.floor((Math.random() * 10) + 1);
   $scope.clickedPost = function (deck) {
     $scope.hideSection = true;
     $scope.decksName = deck.deckName;
