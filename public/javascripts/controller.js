@@ -142,7 +142,7 @@ function ($scope, $http, Warrior, Shaman, Rogue, Paladin, Hunter, Druid, Warlock
   var classArray = ['Warrior', 'Shaman', 'Rogue',
   'Paladin', 'Hunter', 'Druid', 'Warlock', 'Mage', 'Priest'];
   var getClassDecks = function (input) {
-    $http.get('api/seed-me/' + input)
+    $http.get('api/deck/' + input)
     .then(function (results) {
       var filteredArray = []
       for (var i = 0; i < results.data.cards.length; i++) {
