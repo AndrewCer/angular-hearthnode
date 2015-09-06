@@ -7,7 +7,7 @@ This app gives users the ability to view, create, manage, and post Hearthstone d
 ### Technologies Used
 - Javascript
 - Angular
-- Express
+- Express (serving as api for auth and mongo data)
 - Jade
 - bcrypt
 - node.js
