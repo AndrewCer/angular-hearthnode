@@ -28,9 +28,8 @@ String.prototype.capitalize = function(){
     });
 };
 
-app.controller('AccountController', ['$scope', '$http', '$cookies', function ($scope, $http, $cookies) {
+app.controller('AccountController', ['$scope', '$http', '$cookies', '$location', function ($scope, $http, $cookies, $location) {
   $scope.checkActive = true;
-  $scope.userinfo = $cookies.get('local');
   var checkLogin = function () {
     var userinfo = $cookies.get('local');
     if (userinfo) {
@@ -60,9 +59,11 @@ app.controller('AccountController', ['$scope', '$http', '$cookies', function ($s
         $scope.usersName = username.capitalize();
         $cookies.put('local', results.data);
         $scope.userinfo = $cookies.get('local');
+        $scope.loginName = null;
+        $scope.loginPassword = null;
       }
       else {
-        console.log('notpassed');
+        return false
       }
     })
   }
@@ -72,7 +73,7 @@ app.controller('AccountController', ['$scope', '$http', '$cookies', function ($s
     $cookies.remove('local');
     $http.get('api/logout')
     .then(function (response) {
-      return true
+      return $location.path('/');
     })
   }
   $scope.signUp = function () {
@@ -129,6 +130,7 @@ app.controller('AccountController', ['$scope', '$http', '$cookies', function ($s
                   $scope.loggedIn = true;
                   $scope.usersName = username.capitalize();
                   $cookies.put('local', response);
+                  $scope.userinfo = $cookies.get('local');
                 }
                 else {
                   $scope.serverError = 'Something went wrong. Please try again'
@@ -256,7 +258,6 @@ app.controller('UserDeckController', ['$scope', '$http', '$cookies', '$location'
     $scope.clickedDeck = returnDeck[deck];
   }
   $scope.removeCard = function (cardIndex) {
-    console.log(cardIndex);
     // TODO: remove selected card from array and api call to remove from db
     // stagedCardsArr.splice(cardIndex, 1)
   }

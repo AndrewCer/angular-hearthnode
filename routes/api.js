@@ -68,7 +68,7 @@ router.post('/authenticate', function (req, res) {
 router.post('/login', function (req, res) {
   var username = req.body.username;
   var password = req.body.password;
-  users.findOne({username: username.toLowerCase})
+  users.findOne({username: username.toLowerCase()})
   .then(function (user) {
     var cryptCheck = bcrypt.compareSync(password, user.password);
     if (cryptCheck) {

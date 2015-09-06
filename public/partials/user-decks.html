@@ -23,7 +23,10 @@
   </div>
   <div class="container sub-header" ng-hide='hideMain'>
     <div class="row">
-      <h1>{{userName}}'s Decks</h1>
+      <h1>{{usersName}}'s Decks</h1>
+    </div>
+    <div ng-hide='!deckKeys'>
+      <h1>hey</h1>
     </div>
     <div class="row">
       <div class="class-cards" ng-repeat='deck in deckKeys track by $index'>
@@ -34,7 +37,7 @@
     </div>
   </div>
   <div class="container" ng-show='hideMain'>
-    <h1>{{userName}}'s {{deckName}} Deck</h1>
+    <h1>{{usersName}}'s {{deckName}} Deck</h1>
     <input type="button" class="btn btn-info back-button" value="Back to Decks" ng-click='hideMain = false'>
     <div class="row card-container">
       <div class="card-scroller col-md-8">
