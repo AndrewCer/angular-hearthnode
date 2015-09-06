@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var unirest = require('unirest');
-var db = require('monk')('localhost/hearthnode');
+var db = require('monk')(process.env.MONGO_URL);
 var cards = db.get('cards');
 var users = db.get('users');
 var postedDecks = db.get('decks');
@@ -14,7 +14,8 @@ router.get('/deck/:class', function(req, res) {
   cards.findOne({class: className})
   .then(function (data) {
     res.json(data)
-})
+  })
+});
 
 router.post('/check-input', function (req, res) {
   var username = req.body.username;
@@ -122,10 +123,10 @@ router.post('/create-deck', function (req, res) {
   }
 })
 
-router.post('/delete-deck', function (req, res) {
-  var data = req.body;
-  users.findOne({_id: data.userinfo})
-  .then(function (user) {
+// router.post('/delete-deck', function (req, res) {
+//   var data = req.body;
+//   users.findOne({_id: data.userinfo})
+//   .then(function (user) {
     // TODO: need to figure out how to remove specific deck from decks array
     // if (user) {
     //   for (var i = 0; i < user.decks.length; i++) {
@@ -142,8 +143,8 @@ router.post('/delete-deck', function (req, res) {
       //   return res.json(true)
       // })
     // }
-  })
-})
+  // })
+// })
 
 router.post('/users-decks', function (req, res) {
   var userId = req.body.userinfo;
@@ -198,6 +199,6 @@ router.post('/deck-query', function (req, res) {
   //   cards.insert(classCards)
   //   res.json(result.body)
   // });
-});
+
 
 module.exports = router;
