@@ -44,7 +44,7 @@
         <div class="all-cards" ng-repeat='deck in allPostedDecks track by $index'>
           <div class='single-card' ng-click='clickedPost(deck)'>
             <a>
-            <img ng-src='{{deck.deck[0].img}}' alt="{{deck.deck[0].name}}">
+            <img ng-src='{{deck.deck[0].imgGold}}' alt="{{deck.deck[0].name}}">
             </a>
             <h3 style='margin-top: 0;'>{{deck.deckName}}</h3>
           </div>
