@@ -27,13 +27,13 @@
        </div>
        <div id="navbar" class="collapse navbar-collapse">
          <ul class="nav navbar-nav">
-           <li class='active'><a href="/">Home</a></li>
-           <li><a href="/all-decks">All Decks</a></li>
+           <li ng-class="{active: isActive('/')}"><a href="/">Home</a></li>
+           <li ng-class="{active: isActive('/all-decks')}"><a href="/all-decks">All Decks</a></li>
          </ul>
         <ul class="nav navbar-nav pull-right">
           <!--logged in-->
           <li class="dropdown" ng-show='loggedIn'>
-           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Welcome {{usersName}}! <span class="caret"></span></a>
+           <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Welcome {{usersName}}! <span class="caret"></span></a>
            <ul class="dropdown-menu">
              <!-- <li><a href="#">Account</a></li> -->
              <li><a href="/user-decks/{{userinfo}}">Your Decks</a></li>

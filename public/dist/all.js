@@ -29,6 +29,9 @@ String.prototype.capitalize = function(){
 };
 
 app.controller('AccountController', ['$scope', '$http', '$cookies', '$location', function ($scope, $http, $cookies, $location) {
+  $scope.isActive = function (viewLocation) {
+      return viewLocation === $location.path();
+  };
   $scope.checkActive = true;
   var checkLogin = function () {
     var userinfo = $cookies.get('local');
