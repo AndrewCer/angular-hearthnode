@@ -123,29 +123,6 @@ router.post('/create-deck', function (req, res) {
   }
 })
 
-// router.post('/delete-deck', function (req, res) {
-//   var data = req.body;
-//   users.findOne({_id: data.userinfo})
-//   .then(function (user) {
-    // TODO: need to figure out how to remove specific deck from decks array
-    // if (user) {
-    //   for (var i = 0; i < user.decks.length; i++) {
-    //     if (Object.keys(user.decks[i])[0] === data.deck) {
-    //       users.find({decks: Object.keys(user.decks[i])[0]})
-    //       .then(function (user) {
-    //         console.log(user);
-    //       })
-    //     }
-    //   }
-      // return users.find({decks: {$in: data.deck}})
-      // .then(function (alldecks) {
-      //   console.log(alldecks);
-      //   return res.json(true)
-      // })
-    // }
-  // })
-// })
-
 router.post('/users-decks', function (req, res) {
   var userId = req.body.userinfo;
   users.findOne({_id: userId})
