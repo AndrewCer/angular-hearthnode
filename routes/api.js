@@ -115,7 +115,6 @@ router.post('/create-deck', function (req, res) {
     var cards = {};
     cards[data.classDeck] = data.cards;
     var userCookie = req.session.user
-    //change to find and if data.classDeck === user.decks[i] dont update deck, else update
     users.update({username: userCookie}, {$addToSet: {decks: cards} })
     .then(function () {
       res.json(true)
