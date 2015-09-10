@@ -9,7 +9,6 @@ app.controller('AccountController', ['$scope', '$http', '$cookies', '$location',
       return viewLocation === $location.path();
   };
   $scope.checkActive = true;
-  // TODO: include cdn for ngStorage and inplament it for auth useage?
   var checkLogin = function () {
     var userinfo = $cookies.get('local');
     if (userinfo) {
@@ -125,6 +124,10 @@ app.controller('AccountController', ['$scope', '$http', '$cookies', '$location',
                   $cookies.put('local', response);
                   $scope.userinfo = $cookies.get('local');
                   $scope.showForm = false;
+                  $scope.userName = null;
+                  $scope.email = null;
+                  $scope.password = null;
+                  $scope.passCheck = null;
                 }
                 else {
                   $scope.serverError = 'Something went wrong. Please try again'
