@@ -124,6 +124,10 @@ app.controller('AccountController', ['$scope', '$http', '$cookies', '$location',
                   $cookies.put('local', response);
                   $scope.userinfo = $cookies.get('local');
                   $scope.showForm = false;
+                  $scope.userName = null;
+                  $scope.email = null;
+                  $scope.password = null;
+                  $scope.passCheck = null;
                 }
                 else {
                   $scope.serverError = 'Something went wrong. Please try again'
@@ -136,9 +140,8 @@ app.controller('AccountController', ['$scope', '$http', '$cookies', '$location',
   }
 }])
 
-app.controller('HomeController', ['$scope', '$http', 'Warrior', 'Shaman', 'Rogue',
-'Paladin', 'Hunter', 'Druid', 'Warlock', 'Mage', 'Priest',
-function ($scope, $http, Warrior, Shaman, Rogue, Paladin, Hunter, Druid, Warlock, Mage, Priest) {
+app.controller('HomeController', ['$scope', '$http', 'ClassStore',
+function ($scope, $http, ClassStore) {
   var classArray = ['Warrior', 'Shaman', 'Rogue',
   'Paladin', 'Hunter', 'Druid', 'Warlock', 'Mage', 'Priest'];
   var getClassDecks = function (input) {
@@ -150,23 +153,22 @@ function ($scope, $http, Warrior, Shaman, Rogue, Paladin, Hunter, Druid, Warlock
           filteredArray.push(results.data.cards[i])
         }
       }
-      eval(input).deckArray(filteredArray)
+      ClassStore.deckStorage(filteredArray, input)
     })
   }
-  if (Warrior.cards.length === 0) {
+  if (ClassStore.decks.length === undefined) {
     for (var i = 0; i < classArray.length; i++) {
       getClassDecks(classArray[i])
     }
   }
 }])
 
-app.controller('ClassDeckController', ['$scope', '$routeParams', '$http', '$location', 'Warrior', 'Shaman', 'Rogue',
-'Paladin', 'Hunter', 'Druid', 'Warlock', 'Mage', 'Priest', '$cookies',
-function ($scope, $routeParams, $http, $location, Warrior, Shaman, Rogue, Paladin, Hunter, Druid, Warlock, Mage, Priest, $cookies) {
+app.controller('ClassDeckController', ['$scope', '$routeParams', '$http', '$location', 'ClassStore', '$cookies',
+function ($scope, $routeParams, $http, $location, ClassStore, $cookies) {
   var deckClass = $routeParams.class;
   $scope.deckClass = $routeParams.class
-  if (eval(deckClass).cards.length > 0) {
-    $scope.cards = eval(deckClass).cards[0]
+  if (ClassStore.decks[deckClass]) {
+    $scope.cards = ClassStore.decks[deckClass];
   }
   else {
     var getClassDecks = function (input) {
@@ -178,8 +180,8 @@ function ($scope, $routeParams, $http, $location, Warrior, Shaman, Rogue, Paladi
             filteredArray.push(results.data.cards[i])
           }
         }
-        eval(input).deckArray(filteredArray)
-        $scope.cards = eval(deckClass).cards[0]
+        ClassStore.deckStorage(filteredArray, input)
+        $scope.cards = ClassStore.decks[deckClass];
       })
     }
     getClassDecks($routeParams.class)

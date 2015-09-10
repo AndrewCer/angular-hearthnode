@@ -1,14 +1,18 @@
 var gulp = require('gulp');
 var concat = require('gulp-concat');
+var uglify = require('gulp-uglify');
+var minifyCss = require('gulp-minify-css');
 
 gulp.task('scripts', function () {
   return gulp.src('public/javascripts/*js')
   .pipe(concat('all.js'))
+  .pipe(uglify())
   .pipe(gulp.dest('public/dist'))
 })
 
 gulp.task('styles', function () {
   return gulp.src('public/stylesheets/style.css')
+  .pipe(minifyCss())
   .pipe(gulp.dest('public/dist'))
 })
 
