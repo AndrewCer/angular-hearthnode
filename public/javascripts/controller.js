@@ -9,6 +9,7 @@ app.controller('AccountController', ['$scope', '$http', '$cookies', '$location',
       return viewLocation === $location.path();
   };
   $scope.checkActive = true;
+  // TODO: include cdn for ngStorage and inplament it for auth useage?
   var checkLogin = function () {
     var userinfo = $cookies.get('local');
     if (userinfo) {
@@ -135,7 +136,7 @@ app.controller('AccountController', ['$scope', '$http', '$cookies', '$location',
     }
   }
 }])
-
+// TODO: refactor controller and factory to have one factory with many class objects
 app.controller('HomeController', ['$scope', '$http', 'Warrior', 'Shaman', 'Rogue',
 'Paladin', 'Hunter', 'Druid', 'Warlock', 'Mage', 'Priest',
 function ($scope, $http, Warrior, Shaman, Rogue, Paladin, Hunter, Druid, Warlock, Mage, Priest) {
